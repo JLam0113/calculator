@@ -1,0 +1,22 @@
+.numbersBox {
+    display:flex;
+    flex-wrap: wrap;
+    width: 25vw;
+    margin: auto;
+}
+
+.numbersBox button {
+    flex-basis: 25%;
+    aspect-ratio: 1/1;
+}
+
+#display {
+    height: 50px;
+    width: 25vw;
+    margin: auto;
+    background: lightgray;
+}
+
+body {
+    text-align: center;
+}

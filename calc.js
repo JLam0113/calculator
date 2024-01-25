@@ -20,42 +20,46 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(number1, operate, number2) {
-    if (operate == "add")
-        return add(number1, number2)
-    else if (operate == "subtract") {
-        return subtract(number1, number2)
+function operate(operator) {
+    if (operator == "+")
+        return add(parseFloat(a), parseFloat(b))
+    else if (operator == "-") {
+        return subtract(parseFloat(a), parseFloat(b))
     }
-    else if (operate == "multiply") {
-        return multiply(a, b)
+    else if (operator == "X") {
+        return multiply(parseFloat(a), parseFloat(b))
     }
-    else if (operate == "divide") {
-        return divide(a, b)
+    else if (operator == "÷") {
+        return divide(parseFloat(a), parseFloat(b))
     }
 }
 
 function updateDisplay(input) {
     const display = document.querySelector('#display')
-    if (!isOperator(input) && state !== 'operator') {
+    if (!isOperator(input)) {
         if (state == 'number1') a += input;
         else {
             if(state == 'operator') {
                 clear();
-                state =='number2'
+                state = 'number2';
             }
             b += input;
         }
     }
     else {
-        clear()
-        state = 'operator'
+        clear();
+        state = 'operator';
         operator = input;
     }
     display.innerHTML += input
 }
 
 function calculate(){
-    
+    clear();
+    const display = document.querySelector('#display')
+    a = operate(operator);
+    display.innerHTML += a;
+    b = '';
 }
 
 function clear() {

@@ -2,7 +2,7 @@ let a = '';
 let operator = '';
 let b = '';
 
-let whichNumber = 'number1'
+let state = 'number1'
 
 function add(a, b) {
     return a + b;
@@ -36,18 +36,26 @@ function operate(number1, operate, number2) {
 
 function updateDisplay(input) {
     const display = document.querySelector('#display')
-    if (!isOperator(input)) {
-        if (whichNumber == 'number1') a += input;
-        else b += input;
+    if (!isOperator(input) && state !== 'operator') {
+        if (state == 'number1') a += input;
+        else {
+            if(state == 'operator') {
+                clear();
+                state =='number2'
+            }
+            b += input;
+        }
     }
     else {
-        // TODO
-        // Clear input when going from operator to number
-        // Block input if another operator is chosen back to back
         clear()
-        whichNumber = 'number2'
+        state = 'operator'
+        operator = input;
     }
     display.innerHTML += input
+}
+
+function calculate(){
+    
 }
 
 function clear() {
@@ -55,7 +63,15 @@ function clear() {
     display.innerHTML = '';
 }
 
+function clearAll() {
+    const display = document.querySelector('#display')
+    display.innerHTML = '';
+    a = '';
+    b = '';
+    operator = '';
+}
+
 function isOperator(input) {
-    if (input == '+' || input == '-' || input == '÷' || input == 'x') return true;
+    if (input == '+' || input == '-' || input == '÷' || input == 'X') return true;
     return false;
 }

@@ -17,6 +17,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b == '0') clear();
     return a / b;
 }
 
@@ -39,7 +40,7 @@ function updateDisplay(input) {
     if (!isOperator(input)) {
         if (state == 'number1') a += input;
         else {
-            if(state == 'operator') {
+            if (state == 'operator') {
                 clear();
                 state = 'number2';
             }
@@ -47,6 +48,7 @@ function updateDisplay(input) {
         }
     }
     else {
+        if (b !== '') calculate();
         clear();
         state = 'operator';
         operator = input;
@@ -54,10 +56,17 @@ function updateDisplay(input) {
     display.innerHTML += input
 }
 
-function calculate(){
+function updateDisplayDot(input){
+    const display = document.querySelector('#display')
+    if(display.innerHTML.includes('.')) return;
+    else updateDisplay('.');
+}
+
+function calculate() {
+    if(state == 'operator' || b == '' || a == '') return;
     clear();
     const display = document.querySelector('#display')
-    a = operate(operator);
+    a = Math.round(operate(operator) * 100) / 100;
     display.innerHTML += a;
     b = '';
 }
@@ -73,6 +82,7 @@ function clearAll() {
     a = '';
     b = '';
     operator = '';
+    state = 'number1';
 }
 
 function isOperator(input) {
